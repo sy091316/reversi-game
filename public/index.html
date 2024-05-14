@@ -20,7 +20,7 @@
   </style>
   <script>
     function goToLobby(){
-      let username = $('#nameInput').val();
+      let username = encodeURI($('#nameInput').val());
       // check if username is undefined, null, or empty space
       if ((typeof username == 'undefined') || (username === null) || (!username.trim())) {
         username = "Anonymous_"+Math.floor(Math.random()*1000);
