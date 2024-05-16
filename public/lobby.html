@@ -18,10 +18,32 @@
       margin: 1px 1px 1px 10px;
     }
     .chat_message {
-      font-size: 125%;
+      font-size: 120%;
       margin: 1px 1px 1px 1px;
-      color: rgb(53, 3, 168);
+      color: black;
+      font-family: Georgia, Times, "Times New Roman", serif;
     }
+    .title_lobby {
+      font-family:'Mastro', Times, serif;
+    }
+    .profile {
+      width: 55px;
+      height: 10%;
+      margin-right: 10px;
+    }
+    .message_group {
+      flex-wrap: wrap;
+      max-width: 90%;
+    }
+    .message_user {
+      overflow-wrap: break-word;
+      text-wrap: wrap;
+      word-wrap: break-word;
+      flex-wrap: wrap;
+      font-weight: 500;
+    }
+
+    
   </style>
 
   <title>Reversi: Lobby</title>
@@ -31,17 +53,23 @@
   <div class="container-fluid">
     <div class="row m-3 headerrow">
       <div class="col text-center">
-        <h3>Lobby</h3>
+        <h3 class="title_lobby pt-2">Lobby</h3>
       </div>
     </div>
 
     <div class="row m-3">
       <div class="col">
         <div class="row align-items-center justify-content-center m-3">
-          <div class="col-8">
-            <div class="input-group">
-              <input type="text" class="form-control text-nowrap" id="chatMessage" placeholder="Enter your message here" aria-label="Enter your message to send to the chat room"/>
-              <button type="submit" class="btn btn-primary text-nowrap" id="chatButton" onclick="sendChatMessage()">Send</button>
+          <div class="col-12 col-sm-12 col-md-10 col-lg-8 col-xl-6">
+              Pick Profile Color:
+                <button class="btn bg-transparent" onclick="pickColor('green')"><img class="img-fluid" src="assets/images/green-button.png"></button>
+                <button class="btn bg-transparent" onclick="pickColor('purple')"><img class="img-fluid" src="assets/images/purple-button.png"></button>
+                <button class="btn bg-transparent" onclick="pickColor('brown')"><img class="img-fluid" src="assets/images/brown-button.png"></button>
+                <button class="btn bg-transparent" onclick="pickColor('black')"><img class="img-fluid" src="assets/images/black-button.png"></button>
+            <br>
+            <div class="input-group mt-3">
+              <input type="text" class="form-control text-nowrap" id="chatMessage" placeholder="Enter your message here" aria-label="Enter your message to send to the chat room" onkeyup="textEnable()"/>
+              <button type="submit" class="btn btn-success text-nowrap" id="chatButton" onclick="sendChatMessage()" disabled>Send</button>
             </div>
           </div>
         </div>

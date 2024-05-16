@@ -19,6 +19,29 @@ let username = decodeURI(getIRIParameterValue('username'));
 // }
 
 let chatRoom = 'Lobby';
+let colorList = {};
+
+// chat button is disabled until user enters input
+let messageInput = document.querySelector("#chatMessage");
+let chatbt = document.querySelector("#chatButton");
+function textEnable() {
+    if (messageInput.value.trim() === "") {
+        chatbt.disabled = true;
+    } else {
+        chatbt.disabled = false;
+    }
+}
+// chat button works even user clicks "enter"
+messageInput.addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        chatbt.click();
+    }
+})
+
+function pickColor(color) {
+    colorList[socket.id] = color;
+}
 
 // $('#messages').prepend('<b>'+username+':</b>');
 
@@ -48,6 +71,11 @@ function sendChatMessage() {
     request.username = username;
     // input
     request.message = $('#chatMessage').val();
+    // clear input and disable button 
+    document.getElementById("chatMessage").value = "";
+    chatbt.disabled = true;
+
+    request.color = colorList[socket.id]; //
     console.log('**** Client log message, sending \'send_chat_message\' command: '+JSON.stringify(request));
     socket.emit('send_chat_message',request);
 }
@@ -61,7 +89,10 @@ socket.on('send_chat_message_response', (payload) =>{
         console.log(payload.message);
         return;
     }
-    let newString = '<p class=\'chat_message\'><b>'+payload.username+'</b>: '+payload.message+'</p>';
+    if (!payload.color) {
+        payload.color = 'black';
+    }
+    let newString = '<div class=\'d-flex string_container\'><img class=\'img-fluid profile flex-shrink-0\'src="assets/images/'+payload.color+'-icon.png"/><br><div class=\'message_group flex-grow-1\'><p class=\'chat_message\'><b>'+payload.username+'</b>:</p><p class=\'message_user\'>'+payload.message+'</p></div><div>';
     $('#messages').prepend(newString);
 })
 

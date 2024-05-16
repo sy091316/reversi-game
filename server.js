@@ -124,6 +124,8 @@ io.on('connection', (socket) => {
             else {
                 response = {};
                 response.result = 'success';
+                // response.id = socket.id;
+                // response.color = payload.color;
                 response.room = room;
                 response.username = username;
                 response.count = sockets.length;
@@ -197,6 +199,8 @@ io.on('connection', (socket) => {
         /* Handle the command */
         let response = {};
         response.result = 'success';
+        // response.id = socket.id; // if socket id my response, float right
+        response.color = payload.color;
         response.username = username;
         response.room = room;
         response.message = message;
