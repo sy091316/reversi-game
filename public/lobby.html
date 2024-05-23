@@ -12,18 +12,23 @@
   <style>
     .headerrow {
       background-color: darkseagreen;
+      border-radius: 5px;
     }
 
     #messagePane{
       background-color: rgb(224, 243, 224);
+      border-radius: 5px;
     }
 
     .join_room_response,
     .left_room_response {
       background-color: rgb(247, 247, 247);
+      border-radius: 30px;
+      padding-right: 5px;
+      padding-left: 5px;
     }
     .chat_message {
-      font-size: 120%;
+      /* font-size: 120%; */
       margin: 1px 1px 1px 1px;
       color: black;
       font-family: Georgia, Times, "Times New Roman", serif;
@@ -32,7 +37,7 @@
       font-family:'Mastro', Times, serif;
     }
     .profile {
-      width: 55px;
+      width: 35px;
       height: 10%;
       margin-right: 10px;
       vertical-align: top;
@@ -40,6 +45,7 @@
     .message_group {
       flex-wrap: wrap;
       max-width: 100%;
+      margin-top: -3px;
     }
     .message_user {
       overflow-wrap: break-word;
@@ -51,6 +57,14 @@
 
     .string_container {
       display: inline-block;
+    }
+
+    .chat_m {
+      background-color: white;
+      border: 1px solid #725445;
+      border-radius: 30px;
+      padding-right: 10px !important;
+      padding-left: 10px !important;
     }
 
     
@@ -78,18 +92,16 @@
           </div>
           <div class="col-md-8" id="messagePane">
             <div>
-              <h4>Messages</h4>
+              <h4 class="pt-2">Messages</h4>
             </div>
             Pick Profile Color:
                 <button class="btn bg-transparent" onclick="pickColor('green')"><img class="img-fluid" src="assets/images/green-button.png"></button>
                 <button class="btn bg-transparent" onclick="pickColor('purple')"><img class="img-fluid" src="assets/images/purple-button.png"></button>
                 <button class="btn bg-transparent" onclick="pickColor('brown')"><img class="img-fluid" src="assets/images/brown-button.png"></button>
                 <button class="btn bg-transparent" onclick="pickColor('black')"><img class="img-fluid" src="assets/images/black-button.png"></button>
-            <div class="input-group">
+            <div class="input-group mt-2">
               <input type="text" class="form-control text-nowrap" id="chatMessage" placeholder="Enter your message here" aria-label="Enter your message to send to the chat room" onkeyup="textEnable()"/>
               <button type="submit" class="btn btn-success text-nowrap" id="chatButton" onclick="sendChatMessage()" disabled>Send</button>
-              <!-- <input type="text" class="form-control text-nowrap" id="chatMessage" placeholder="Enter your message here" aria-label="Enter your message to send to the chat room"/>
-              <button type="submit" class="btn btn-success text-nowrap" id="chatButton" onclick="sendChatMessage()">Send</button> -->
             </div>
             <div id="messages" class="mt-3">
             </div>

@@ -179,7 +179,8 @@ socket.on('send_chat_message_response', (payload) =>{
     if (!payload.color) {
         payload.color = 'black';
     }
-    let newHTML = '<p class=\'\'><img class=\'img-fluid profile flex-shrink-0\'src=\'assets/images/'+payload.color+'-icon.png\'/><span class=\'d-inline-block message_group\'><b>'+payload.username+'</b>:<br>'+payload.message+'</span></p>';
+    let newHTML = '<p class=\'\'><img class=\'img-fluid profile flex-shrink-0\'src=\'assets/images/'+payload.color+'-icon.png\'/><span class=\'d-inline-block message_group\'><b class=\'chat_message\'>'+payload.username+'</b>:<br><span class=\'chat_m p-1\'>'+payload.message+'</span></span></p>';
+    // let newHTML = '<p class=\'test row\'><span class=\'d-inline-block message_group\'><b class=\'chat_message\'>'+payload.username+'</b>:<br>'+payload.message+'</span><img class=\'img-fluid profile flex-shrink-0\'src=\'assets/images/'+payload.color+'-icon.png\'/></p>';
     let newNode = $(newHTML);
     newNode.hide();
     $('#messages').prepend(newNode);
