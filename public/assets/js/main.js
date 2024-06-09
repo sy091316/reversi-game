@@ -303,6 +303,7 @@ let old_board = [
 
 let my_color = "";
 let interval_timer;
+let game_over_status = 0;
 
 socket.on('game_update', (payload) =>{
     if(( typeof payload == 'undefined') || (payload === null)) {
@@ -437,7 +438,6 @@ socket.on('game_update', (payload) =>{
         }
     }
 
-    let count = 0;
     clearInterval(interval_timer);
     interval_timer = setInterval(((last_time) => {
         return (() => {
@@ -459,21 +459,25 @@ socket.on('game_update', (payload) =>{
             timestring = minutes + ":" + timestring;
             if(total < 100) {
                 $("#elapsed").html(timestring);
+                // if game over, stop the timer
+                if (game_over_status === 1) {
+                    clearInterval(interval_timer);
+                }
             }
             else {
                 // when progress bar is "times up"
-                count += 1;
+                game_over_status += 1;
                 $("#elapsed").html("Times up!");
                 // once the progress bar is times up
-                if (count === 1) {
+                if (game_over_status === 1) {
                     // send server whose turn it was
                     socket.emit('time', payload.game.whose_turn);
-                    // not able to click or hover over board
-                    for (let row = 0; row < 8; row++) {
-                        for (let column = 0; column < 8; column ++) {
-                            $('#' + row + '_' + column).off('click');
-                            $('#' + row + '_' + column).removeClass('hovered_over');
-                        }
+                }
+                // not able to click or hover over board
+                for (let row = 0; row < 8; row++) {
+                    for (let column = 0; column < 8; column ++) {
+                        $('#' + row + '_' + column).off('click');
+                        $('#' + row + '_' + column).removeClass('hovered_over');
                     }
                 }
             }
@@ -519,9 +523,18 @@ socket.on('game_over', (payload) =>{
     nodeA.append(nodeB);
     nodeA.append(nodeC);
     nodeA.append(nodeD);
+    if (socket.id === payload.game.player_black.socket && payload.who_won === "black") {
+        let nodeE = $("<div><img src='/assets/images/congrats.png' id=\'congrats\' class='position-absolute w-100' style='top: 50px; left: 0%; z-index:-1; opacity: 20%; animation: 10s animation;'></div>");
+        nodeA.append(nodeE);
+    }
+    else if (socket.id === payload.game.player_white.socket && payload.who_won === "white") {
+        let nodeE = $("<div><img src='/assets/images/congrats.png' id=\'congrats\' class='position-absolute w-100' style='top: 50px; left: 0%; z-index:-1; opacity: 20%; animation: 10s animation;'></div>");
+        nodeA.append(nodeE);
+    }
     nodeA.hide();
     $('#game_over').replaceWith(nodeA);
     nodeA.show("fade", 1000);
+    game_over_status = 1;
 })
 
 /* Request to join the chat room */

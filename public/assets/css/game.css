@@ -1,6 +1,6 @@
 body {
     background-image: url('/assets/images/wall.png');
-    background-color: rgb(225,183,137);
+    /* background-color: rgb(225,183,137); */
     background-color: #f5ebe0;
     background-size: cover;
     background-position: center center;
@@ -171,6 +171,13 @@ td.hovered_over:hover{
 }
 
 
-
+@keyframes animation {
+    from {
+      top: 0px;
+    }
+    to {
+      top: 500px;
+    }
+  }
 
 
