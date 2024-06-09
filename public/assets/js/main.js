@@ -45,6 +45,8 @@ function textEnable() {
 // })
 
 function pickColor(color) {
+    $(".active").removeClass("active");
+    $('#p_'+color).addClass('active');
     colorList[socket.id] = color;
 }
 
@@ -57,7 +59,7 @@ socket.on('log', function(array) {
 });
 
 function makeInviteButton(socket_id) {
-    let newHTML = "<button type='button' class='btn btn-outline-primary'>Invite</button>";
+    let newHTML = "<button type='button' class='btn btn-outline-success'>Invite</button>";
     let newNode = $(newHTML);
     newNode.click(() => {
         let payload = {
@@ -71,7 +73,7 @@ function makeInviteButton(socket_id) {
 }
 
 function makeInvitedButton(socket_id) {
-    let newHTML = "<button type='button' class='btn btn-primary'>Invited</button>";
+    let newHTML = "<button type='button' class='btn btn-success'>Invited</button>";
     let newNode = $(newHTML);
     newNode.click(() => {
         let payload = {
@@ -273,8 +275,14 @@ socket.on('send_chat_message_response', (payload) =>{
     if (!payload.color) {
         payload.color = 'black';
     }
-    let newHTML = '<p class=\'\'><img class=\'img-fluid profile flex-shrink-0\'src=\'assets/images/'+payload.color+'-icon.png\'/><span class=\'d-inline-block message_group\'><b class=\'chat_message\'>'+payload.username+'</b>:<br><span class=\'chat_m p-1\'>'+payload.message+'</span></span></p>';
-    // let newHTML = '<p class=\'test row\'><span class=\'d-inline-block message_group\'><b class=\'chat_message\'>'+payload.username+'</b>:<br>'+payload.message+'</span><img class=\'img-fluid profile flex-shrink-0\'src=\'assets/images/'+payload.color+'-icon.png\'/></p>';
+    let newHTML = '<p class=\'\'><img class=\'img-fluid profile \'src=\'assets/images/'+payload.color+'-icon.png\'/><span class=\'d-inline-block message_group_left\'><b class=\'chat_message\'>'+payload.username+'</b>:<br><span class=\'chat_m p-1\'>'+payload.message+'</span></span></p>';
+
+    if (payload.id === socket.id) {
+        newHTML = '<p class=\'d-flex flex-row-reverse\'><img class=\'img-fluid profile\'src=\'assets/images/'+payload.color+'-icon.png\'/><span class=\'d-inline-block message_group_right\'><b class=\'chat_message\'>'+payload.username+'</b>:<br><span class=\'chat_m_right p-1\'>'+payload.message+'</span></span></p>';
+    }
+    // let newHTML = '<p class=\'\'><img class=\'img-fluid profile \'src=\'assets/images/'+payload.color+'-icon.png\'/><span class=\'d-inline-block message_group\'><b class=\'chat_message\'>'+payload.username+'</b>:<br><span class=\'chat_m p-1\'>'+payload.message+'</span></span></p>';
+
+    //let newHTML = '<p class=\'test row\'><span class=\'d-inline-block message_group\'><b class=\'chat_message\'>'+payload.username+'</b>:<br>'+payload.message+'</span><img class=\'img-fluid profile flex-shrink-0\'src=\'assets/images/'+payload.color+'-icon.png\'/></p>';
     let newNode = $(newHTML);
     newNode.hide();
     $('#messages').prepend(newNode);

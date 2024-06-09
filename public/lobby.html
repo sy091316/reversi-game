@@ -11,8 +11,8 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <style>
     .headerrow {
-      background-color: darkseagreen;
-      border-radius: 5px;
+      border-top: 8px solid darkseagreen;
+      border-bottom: 8px solid darkseagreen;
     }
 
     #messagePane{
@@ -22,7 +22,7 @@
 
     .join_room_response,
     .left_room_response {
-      background-color: rgb(247, 247, 247);
+      background-color: rgb(175, 214, 175);
       border-radius: 30px;
       padding-right: 5px;
       padding-left: 5px;
@@ -33,8 +33,14 @@
       color: black;
       font-family: Georgia, Times, "Times New Roman", serif;
     }
+
     .title_lobby {
       font-family:'Mastro', Times, serif;
+      color:#725445;
+      font-weight: 600;
+      font-size: 2rem;
+      flex-grow: 1;
+      text-align: center !important;
     }
     .profile {
       width: 35px;
@@ -42,10 +48,17 @@
       margin-right: 10px;
       vertical-align: top;
     }
-    .message_group {
+    .message_group_left {
       flex-wrap: wrap;
       max-width: 100%;
       margin-top: -3px;
+    }
+    .message_group_right {
+      flex-wrap: wrap;
+      max-width: 100%;
+      margin-top: -3px;
+      text-align: right !important;
+      margin-right: 10px;
     }
     .message_user {
       overflow-wrap: break-word;
@@ -54,18 +67,51 @@
       flex-wrap: wrap;
       font-weight: 500;
     }
-
     .string_container {
       display: inline-block;
     }
-
     .chat_m {
       background-color: white;
-      border: 1px solid #725445;
+      border: 1px solid green;
       border-radius: 30px;
       padding-right: 10px !important;
       padding-left: 10px !important;
+      text-align: left !important;
     }
+    .chat_m_right {
+    background-color: green;
+    color: white;
+    border-radius: 30px;
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+    text-align: left !important;
+  }
+
+    .profile_color {
+    border-radius: 50%;
+    border: 1.5px solid rgb(83, 168, 83);
+    padding: 0.3em 0.3em;
+    margin-right: 5px;
+    background-color: #FFFCF3;
+    }
+
+    .active {
+      border: 2px solid transparent;
+      border-radius: 50%;
+      background: 
+      linear-gradient(to right, #FFFCF3, #FFFCF3), 
+    linear-gradient(to left, #743ad5, #d53a9d);
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+    }
+
+    .back_b {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+    .profile_color:hover {
+    transform: scale(1.1);
+}
 
     
   </style>
@@ -76,8 +122,9 @@
 <body>
   <div class="container-fluid">
     <div class="row m-3 headerrow">
-      <div class="col text-center">
-        <h3 class="title_lobby pt-2" id="lobbyTitle">Lobby</h3>
+      <div class="col text-center align-middle d-flex position-relative">
+        <a class="btn btn-success text-nowrap back_b position-absolute top-0 right-0" href="index.html">Back</a>
+        <h3 class="title_lobby pt-3" id="lobbyTitle">Lobby</h3>
       </div>
     </div>
 
@@ -94,11 +141,11 @@
             <div>
               <h4 class="pt-2">Messages</h4>
             </div>
-            Pick Profile Color:
-                <button class="btn bg-transparent" onclick="pickColor('green')"><img class="img-fluid" src="assets/images/green-button.png"></button>
-                <button class="btn bg-transparent" onclick="pickColor('purple')"><img class="img-fluid" src="assets/images/purple-button.png"></button>
-                <button class="btn bg-transparent" onclick="pickColor('brown')"><img class="img-fluid" src="assets/images/brown-button.png"></button>
-                <button class="btn bg-transparent" onclick="pickColor('black')"><img class="img-fluid" src="assets/images/black-button.png"></button>
+            Change Profile Color:
+                <button id="p_green" class="profile_color btn btn-lg" onclick="pickColor('green')"><img class="img-fluid" src="assets/images/green-button.png" alt="green"></button>
+                <button id="p_purple"class="profile_color btn btn-lg" onclick="pickColor('purple')"><img class="img-fluid" src="assets/images/purple-button.png" alt="purple"></button>
+                <button id="p_brown" class="profile_color btn btn-lg" onclick="pickColor('brown')"><img class="img-fluid" src="assets/images/brown-button.png" alt="brown"></button>
+                <button id="p_black" class="profile_color btn btn-lg active" onclick="pickColor('black')"><img class="img-fluid" src="assets/images/black-button.png" alt="black"></button>
             <div class="input-group mt-2">
               <input type="text" class="form-control text-nowrap" id="chatMessage" placeholder="Enter your message here" aria-label="Enter your message to send to the chat room" onkeyup="textEnable()"/>
               <button type="submit" class="btn btn-success text-nowrap" id="chatButton" onclick="sendChatMessage()" disabled>Send</button>

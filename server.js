@@ -440,7 +440,7 @@ io.on('connection', (socket) => {
         /* Handle the command */
         let response = {};
         response.result = 'success';
-        // response.id = socket.id; // if socket id my response, float right
+        response.id = socket.id; // if socket id my response, float right
         response.color = payload.color;
         response.username = username;
         response.room = room;
@@ -580,7 +580,7 @@ io.on('connection', (socket) => {
 
         let d = new Date();
         game.last_move_time = d.getTime();
-        
+
 
         send_game_update(socket, game_id, 'played a token');
     });

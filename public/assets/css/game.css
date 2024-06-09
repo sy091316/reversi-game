@@ -1,19 +1,33 @@
 body {
-    background-color: rgb(177, 224, 177);
+    background-image: url('/assets/images/wall.png');
+    background-color: rgb(225,183,137);
+    background-color: #f5ebe0;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: relative;
     border-radius: 5px;
   }
 
-.headerrow, #messagePane {
-    background-color: rgb(224, 243, 224);
-    border-radius: 5px;
+.headerrow {
+    /* background-color: rgb(224, 243, 224); */
+    border-top: 8px solid darkseagreen;
+    border-bottom: 8px solid darkseagreen;
 }
+
+#messagePane{
+    background-color: #f5ebe0;
+    border-radius: 5px;
+    border: 1.5px solid #725445;
+  }
+
 
   .join_room_response,
   .left_room_response {
-    background-color: rgb(247, 247, 247);
+    background-color: #d5bdaf;
     border-radius: 30px;
-    padding-right: 5px;
-    padding-left: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
   }
   .chat_message {
     /* font-size: 120%; */
@@ -23,6 +37,8 @@ body {
   }
   .title_lobby {
     font-family:'Mastro', Times, serif;
+    font-weight: 600;
+    font-size: 2rem;
   }
   .profile {
     width: 35px;
@@ -30,10 +46,17 @@ body {
     margin-right: 10px;
     vertical-align: top;
   }
-  .message_group {
+  .message_group_left {
     flex-wrap: wrap;
     max-width: 100%;
     margin-top: -3px;
+  }
+  .message_group_right {
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin-top: -3px;
+    text-align: right !important;
+    margin-right: 10px;
   }
   .message_user {
     overflow-wrap: break-word;
@@ -53,6 +76,15 @@ body {
     border-radius: 30px;
     padding-right: 10px !important;
     padding-left: 10px !important;
+    text-align: left !important;
+  }
+  .chat_m_right {
+    background-color: #725445;
+    color: white;
+    border-radius: 30px;
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+    text-align: left !important;
   }
 
 table#game_board{
@@ -63,15 +95,82 @@ table#game_board{
 
 table#game_board td{
     background-color: rgb(83, 168, 83);
-    border:1px solid black;
+    border: 1px solid white;
     margin:0px;
     padding: 0px;
 }
 
 td.hovered_over:hover{
     background-image: url('/assets/images/hover.gif');
-    max-width: 100%;
-    width: auto; 
-    height: auto;
-
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: relative;
 }
+
+.profile_color {
+    border-radius: 50%;
+    border: 1.5px solid rgb(83, 168, 83);
+    display: block;
+    padding: 0.3em 0.3em;
+    margin-right: 5px;
+    background-color: transparent;
+}
+
+.active {
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background: 
+    linear-gradient(to right, #FFFCF3, #FFFCF3), 
+    linear-gradient(to left, #743ad5, #d53a9d);
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+}
+
+.profile_color:hover {
+    transform: scale(1.1);
+}
+
+.progress {
+    border: 2px solid #725445;
+    background-color: white;
+    width: 44em !important;
+    height: 20px;
+    margin: 0 auto !important;
+}
+.progress-bar {
+    background-color: #725445 !important;
+}
+
+.border_circle {
+    border: 2px solid #725445;
+    background: #d5bdaf;
+    border-radius:50%;
+    padding: 10px;  
+}
+.score_bd {
+    position: relative;
+    text-align: center;
+}
+
+#whitesum, #blacksum {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family:'Mastro', Times, serif;
+    font-size: 20px;
+}
+
+#blacksum {
+    color: white !important;
+}
+
+#vs {
+    padding: 20px;
+}
+
+
+
+
+
