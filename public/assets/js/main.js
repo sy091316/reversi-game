@@ -437,6 +437,7 @@ socket.on('game_update', (payload) =>{
         }
     }
 
+    let count = 0;
     clearInterval(interval_timer);
     interval_timer = setInterval(((last_time) => {
         return (() => {
@@ -460,7 +461,21 @@ socket.on('game_update', (payload) =>{
                 $("#elapsed").html(timestring);
             }
             else {
+                // when progress bar is "times up"
+                count += 1;
                 $("#elapsed").html("Times up!");
+                // once the progress bar is times up
+                if (count === 1) {
+                    // send server whose turn it was
+                    socket.emit('time', payload.game.whose_turn);
+                    // not able to click or hover over board
+                    for (let row = 0; row < 8; row++) {
+                        for (let column = 0; column < 8; column ++) {
+                            $('#' + row + '_' + column).off('click');
+                            $('#' + row + '_' + column).removeClass('hovered_over');
+                        }
+                    }
+                }
             }
         })
         

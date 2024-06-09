@@ -844,6 +844,24 @@ function send_game_update(socket, game_id, message) {
             }
         }
     }
+    //if time is up, the current player (player whose turn it is) loses and other player wins
+    socket.on('time', (payload1) => {
+        let winner = "Tie Game";
+        if (payload1 === 'black') {
+            winner = "white";
+        }
+        else {
+            winner = "black";
+        }
+        let payload = {
+            result:'success',
+            game_id: game_id,
+            game: games[game_id],
+            who_won: winner
+        }
+        io.in(game_id).emit('game_over', payload);
+    });
+
     if (legal_moves === 0) {
         let winner = "Tie Game";
         if(whitesum > blacksum) {
